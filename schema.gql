@@ -1,0 +1,61 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type UserRole {
+  id: String!
+  user: User!
+  userId: String!
+  userType: String!
+}
+
+type User {
+  id: String!
+  firstName: String!
+  lastName: String
+  userName: String!
+  userRoles: [UserRole!]
+}
+
+type SignInResponseDto {
+  accessToken: String!
+  refreshToken: String!
+  userDetails: User!
+}
+
+type AccessTokenResponseDto {
+  accessToken: String!
+}
+
+type Query {
+  getUserById(id: String!): User!
+  getAllUsers: [User!]!
+  getUserByUserName(userName: String!): User!
+  getCurrentUser: User!
+}
+
+type Mutation {
+  userSignUp(createUserInput: createUserInput!): SignInResponseDto!
+  getNewAccessToken(refreshToken: String!): AccessTokenResponseDto!
+  userSignIn(userName: String!, password: String!): SignInResponseDto!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  deleteUser(id: String!): String!
+  addRoleToUser(userName: String!, userRole: String!): UserRole!
+}
+
+input createUserInput {
+  firstName: String!
+  lastName: String
+  userName: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  userName: String
+  password: String
+
+  """unique id"""
+  id: String!
+}
